@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Collection Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h2>Data Collection</h2>
+<form id="dataForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <button type="button" onclick="submitData()">Submit</button>
+</form>
+
+<script>
+        function submitData() {
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // Create data object
+            const data = {
+                name: name,
+                email: email
+                // Add other fields as needed
+            };
+
+            // Make a POST request to your API endpoint
+            fetch('https://your-api-endpoint.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // Add any other headers required by your API
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log('Success:', data);
+                alert('Data submitted successfully!');
+            })
+            .catch(error => {
+                     Handle errors
+                console.error('Error:', error);
+                alert('An error occurred while submitting data.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Web App</title>
+    <style>
+        form{
+        position: absolute;
+        left: 600px;
+        top: 150px;
+        font-size: 25px;
+        background-color: blue;
+
+        }
+
+        form
+        {
+
+            margin: auto;
+            border: 3px solid black;
+            padding: 40px;
+
+        }
+        .num1 {
+        position: relative;
+        left: 20px;
+        font-size: 30px;
+
+        }
+        #sub
+        {
+        font-size: 20px;
+        position: relative;
+        left: 300px;
+        }
+        #res
+        {
+        font-size: 20px;
+        position: absolute;
+        left: 50px;
+        }
+        .file
+        {
+        position: absolute;
+        left: 50px;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div>
+<form method="post" action="Assesment()">
+
+    Name: <br> <input type="text" class="num1" name="name" id="text"><br><br>
+    Age:  <br> <input type="number" class="num1" name="number" id="number" style="position:relative; left:px;"><br><br>
+    Mobile :<br><input type="number" class="num1" id="number1" style="position:relative; left:0 px;" ><br><br>
+    <input type="file" id="file"><br><br>
+    <input type="reset" id="res">
+    <input type="submit" id="sub"><br>
+    <p id="id1"></p>
+
+    <script>
+        let x = 5;
+        let y = 10;
+        let z = x + y;
+        let Person = {name:gokul};
+        document.getElementById("id1").innerHTML = Person.name<br>;
+    </script>
+</form>
+</div>
+</body>
+</html>

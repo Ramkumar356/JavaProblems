@@ -1,0 +1,74 @@
+h1
+{
+color: red;
+}
+
+
+#id1
+{
+color: yellow;
+}
+
+
+
+body
+{
+background-color: black;
+}
+
+.class1
+{
+color:violet;
+}
+.class2
+{
+text-decoration:underline;
+}
+.class1 sub
+{
+color:violet;
+}
+*
+{
+color: white
+}
+
+
+hi
+{
+color: green;
+}
+
+/*h1,h2,h3
+{ color: green;
+}*/
+
+/*div p
+{ color: orange;
+}
+
+div > p
+{ color: orange;
+}*/
+
+table + p
+{ color: orange;
+}
+
+/*table ~ p
+{ color: grey;
+}*/
+
+
+h1:link{
+color:yellow;
+}
+
+@media screen and (min-width:600px)and(max-width:800)
+{
+h1
+{ text-decoration:underline;
+}
+}
+
+
