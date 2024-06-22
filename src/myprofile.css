@@ -1,0 +1,42 @@
+body{
+    background-color : #f4f4f2;
+}
+#container{
+    width: 900px;
+    margin-left :auto;
+    margin-right: auto;
+    background-color: white;
+
+
+}
+header{
+    font-size:50px;
+    text-align: center;
+    background-color: blue;
+    color: white;
+
+}
+#profile{
+    float: left;
+    width: 30;
+      
+}
+#profile h3{
+    text-align: center;
+    padding: 0px;
+    background-color: black;
+    color: white;
+    width: 250px;
+
+}
+#profile img{
+    margin-left: 25px;
+    border: 3px solid black;
+
+} 
+#bio{
+    padding: 10px;
+    float: right;
+    width: 65px;
+    
+}
