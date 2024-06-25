@@ -11,11 +11,11 @@ public class Library {
     Map<String, Integer> booksDetails = new HashMap();
     List bookList = new ArrayList();
     List memberList = new ArrayList();
-    List borrowedBooks = new ArrayList();
+    Map<String, Integer> borrowedBooks = new HashMap<>();
 
-    public void addBook(String bookName, String authorName, int indexValue) {
-        bookList.add(new BookDetails(bookName, authorName, indexValue, false));
-        booksDetails.put(bookName, indexValue);
+    public void addBook(String bookName, String authorName, boolean isBorrowed) {
+        bookList.add(new BookDetails(bookName, authorName , false));
+        booksDetails.put(bookName, bookList.size());
     }
 
     public void registerMember(String name, int memberId) {
@@ -24,6 +24,7 @@ public class Library {
 
     public void borrowBook(String bookName, int memberId) throws Exception {
         boolean isMemberFound = false;
+
         if (!booksDetails.containsKey(bookName)) {
             throw new Exception("Book not found");
         }
@@ -37,35 +38,28 @@ public class Library {
         if (isMemberFound == false) {
             throw new Exception("Member not found");
         }
-        int bookIndex = booksDetails.get(bookName);
-        BookDetails book = (BookDetails) bookList.get(bookIndex);
-        if (book.isBorrowed == true) {
-            throw new Exception("Book is already borrowed");
+        for(int i = 0; i < bookList.size();i++){
+            BookDetails book = (BookDetails) bookList.get(i);
+            if (bookName == book.bookName){
+                if (book.isBorrowed == true) {
+                    throw new Exception("Book already Borrowed");
+                }else{
+                    bookList.remove(i);
+                    borrowedBooks.put(bookName,memberId);
+                    bookList.add(new BookDetails(book.bookName, book.authorName,true));
+                    break;
+                }
+            }
         }
-        borrowedBooks.add(new BorrowedBookDetails(bookName, memberId));
-        bookList.set(bookIndex, new BookDetails(bookName, book.authorName, book.serialNumber, true));
-
     }
-
-    public String findMember(int memberId) {
-        int endIndex = memberList.size();
-        int startIndex = 0;
-        int midIndex = (endIndex + startIndex) / 2;
-        while (endIndex - startIndex != 1) {
-            MemberDetails currentMember = (MemberDetails) memberList.get(midIndex);
-            if (currentMember.memberId == memberId) {
-                return currentMember.name;
-            }
-            if (currentMember.memberId > memberId) {
-                endIndex = midIndex;
-                midIndex = (endIndex + startIndex) / 2;
-            }
-            if (currentMember.memberId < memberId) {
-                startIndex = midIndex;
-                midIndex = (endIndex + startIndex) / 2;
+    public boolean findMember(int memberId) {
+        for (int i = 0; i < memberList.size();i++){
+            MemberDetails member = (MemberDetails) memberList.get(i);
+            if (memberId == member.memberId){
+                return true;
             }
         }
-        return "Member Not Found";
+        return false;
     }
 
     public List<String> getAvailableBooks() {
@@ -80,13 +74,22 @@ public class Library {
     }
 
     public boolean isBookBorrowed(String bookName) {
-        for (int i = 0; i < borrowedBooks.size(); i++) {
-            BorrowedBookDetails book = (BorrowedBookDetails) borrowedBooks.get(i);
-            if (book.bookName == bookName) {
+            if (borrowedBooks.containsKey(bookName)) {
                 return true;
             }
+            return false;
+    }
+    public void returnBook(String bookName,int memberId){
+        for (int i = 0; i < bookList.size(); i++) {
+            BookDetails currentBook = (BookDetails) bookList.get(i);
+            if (currentBook.bookName == bookName){
+                bookList.remove(i);
+                borrowedBooks.remove(bookName,memberId);
+                bookList.add(new BookDetails(currentBook.bookName, currentBook.authorName, false));
+                System.out.println("Book Returned");
+                break;
+            }
         }
-        return false;
     }
 }
 
@@ -94,12 +97,10 @@ class BookDetails{
     String bookName;
     String authorName;
     boolean isBorrowed;
-    int serialNumber;
-    BookDetails(String bookName,String authorName,int serialNumber,boolean isBorrowed){
+    BookDetails(String bookName,String authorName,boolean isBorrowed){
         this.authorName = authorName;
         this.bookName = bookName;
-        this.isBorrowed = false;
-        this.serialNumber = serialNumber;
+        this.isBorrowed = isBorrowed;
     }
 }
 class MemberDetails{
